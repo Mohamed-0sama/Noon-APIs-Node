@@ -1,12 +1,9 @@
 const mongoose = require("mongoose");
-// const MongoAtlas ="";
-const MongoLocal = "mongodb://localhost:27017/NoonDB";
+const dotenv = require("dotenv")
+dotenv.config()
 mongoose
-  .connect(MongoLocal)
-
+  .connect(process.env.MONGO_URL)
   .then(() => {
-    console.log("success connect to database");
+    console.log("connected to the Database successfully");
   })
-  .catch((err) => {
-    console.log(err);
-  });
+  .catch((err) => console.log(err));
