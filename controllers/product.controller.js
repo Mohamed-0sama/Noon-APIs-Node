@@ -75,14 +75,17 @@ exports.getAllProducts = async (req, res) => {
           brand: { $in: [qBrand] },
         });
       }
+      products = await Product.find(query);
+    } else {
+      products = await Product.find();
     }
-    products = await Product.find(query);
+
     res.status(200).json(products);
   } catch (err) {
     res.status(500).json(err);
   }
 };
-////////////////////////////////
+
 // exports.getAllProducts = async (req, res) => {
 //   const qNew = req.query.new;
 //   const qCategory = req.query.category;
