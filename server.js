@@ -15,6 +15,7 @@ const productRouter = require("./routers/product.router");
 const cartRouter = require("./routers/cart.router");
 const orderRouter = require("./routers/order.router");
 const imageUploaderRouter = require("./routers/imageUploader");
+const categoryRouter = require("./routers/category.router");
 
 //Middlewares & Resources
 app.use(cors());
@@ -26,6 +27,7 @@ app.use("/api/users", userRouter);
 app.use("/api/products", productRouter);
 app.use("/api/carts", cartRouter);
 app.use("/api/orders", orderRouter);
+app.use("/api/categories", categoryRouter);
 app.use(
   "/api/Upload",
   multer({ storage: imageStorage }).single("image"),
