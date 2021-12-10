@@ -50,9 +50,9 @@ exports.getProduct = async (req, res) => {
 
 //GET ALL PRODUCTS
 exports.getAllProducts = async (req, res) => {
-  const qCategory = req.query.categories;
-  const qSubCat = req.query.subCat;
-  const qBrand = req.query.brand;
+  const qCategory = decodeURIComponent(req.query.categories);
+  const qSubCat = decodeURIComponent(req.query.subCat);
+  const qBrand = decodeURIComponent(req.query.brand);
   try {
     let products;
     let query = {
@@ -65,7 +65,7 @@ exports.getAllProducts = async (req, res) => {
         },
       });
 
-      if (qSubCat) {
+      if (qSubCat.toString()) {
         query.$and.push({
           subCat: { $in: [qSubCat] },
         });

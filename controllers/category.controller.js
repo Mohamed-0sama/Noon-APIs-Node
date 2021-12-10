@@ -10,7 +10,7 @@ exports.getCategory = async (req, res) => {
 };
 
 exports.getAllCategory = async (req, res) => {
-  const qCategory = req.query.category;
+  const qCategory = decodeURIComponent(req.query.category);
   try {
     let category;
     let categoryStr;
@@ -24,6 +24,22 @@ exports.getAllCategory = async (req, res) => {
     } else {
       res.status(200).json(category);
     }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
+exports.getSubCategory = async (req, res) => {
+  const qCategory = decodeURIComponent(req.query.category);
+  let category;
+  try {
+    category = await categories.find({
+      mainCat: {
+        $in: [qCategory],
+      },
+    });
+
+    res.status(200).json(category[0].subCat);
   } catch (err) {
     res.status(500).json(err);
   }

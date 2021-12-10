@@ -12,6 +12,7 @@ const category = require("../controllers/category.controller");
 //EndPoints
 // router.post("/", verifyTokenAndAdmin, product.createProduct);
 router.get("/", category.getAllCategory);
+router.get("/subCat", category.getSubCategory);
 router.get("/find/:id", category.getCategory);
 // router.put("/edit/:id", verifyTokenAndAdmin, product.updateProduct);
 // router.delete("/delete/:id", verifyTokenAndAdmin, product.deleteProduct);
