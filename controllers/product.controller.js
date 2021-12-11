@@ -65,7 +65,7 @@ exports.getAllProducts = async (req, res) => {
         },
       });
 
-      if (qSubCat.toString()) {
+      if (qSubCat) {
         query.$and.push({
           subCat: { $in: [qSubCat] },
         });
