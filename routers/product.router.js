@@ -10,7 +10,7 @@ const {
 router.post("/", verifyTokenAndAdmin, product.createProduct);
 router.get("/", product.getAllProducts);
 router.get("/find/:id", product.getProduct);
-router.put("/edit/:id", verifyTokenAndAuthorization, product.updateProduct);
+router.put("/edit/:id", verifyToken, product.updateProduct);
 router.delete("/delete/:id", verifyTokenAndAdmin, product.deleteProduct);
 
 module.exports = router;
