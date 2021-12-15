@@ -21,7 +21,7 @@ exports.getCategory = async (req, res) => {
 };
 
 exports.getAllCategory = async (req, res) => {
-  const qCategory = decodeURIComponent(req.query.category);
+  const qCategory = req.query.category;
   try {
     let category;
     let categoryStr;
