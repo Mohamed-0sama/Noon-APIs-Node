@@ -52,16 +52,37 @@ exports.getUserStats = async (req, res) => {
 };
 
 //UPDATE
-exports.updateUser = async (req, res) => {
-  if (req.body.password) {
-    req.body.password = bcrypt.hashSync(req.body.password, 10);
-  }
+// exports.updateUser = async (req, res) => {
+//   if (req.body.password) {
+//     req.body.password = bcrypt.hashSync(req.body.password, 10);
+//   }
 
+//   try {
+//     const updatedUser = await User.findByIdAndUpdate(
+//       req.params.id,
+//       {
+//         $set: req.body,
+//       },
+//       { new: true }
+//     );
+//     res.status(200).json(updatedUser);
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// };
+
+exports.updateUser = async (req, res) => {
+  if (!req.body.password) {
+    return res.status(401).send("no password");
+  }
   try {
+    const user = await User.findById(req.params.id);
+    !bcrypt.compareSync(req.body.password, user.password) &&
+      res.status(401).json("Wrong Credentials!");
     const updatedUser = await User.findByIdAndUpdate(
       req.params.id,
       {
-        $set: req.body,
+        $set: { username: req.body.username, email: req.body.email },
       },
       { new: true }
     );
@@ -76,6 +97,27 @@ exports.deleteUser = async (req, res) => {
   try {
     await User.findByIdAndDelete(req.params.id);
     res.status(200).json("User has been deleted...");
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
+exports.updatePassword = async (req, res) => {
+  if (!req.body.password) {
+    return res.status(401).json("no password");
+  }
+  req.body.password = bcrypt.hashSync(req.body.password, 10);
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      req.params.id,
+
+      {
+        $set: { password: req.body.password },
+      },
+
+      { new: true }
+    );
+    res.status(200).json(updatedUser);
   } catch (err) {
     res.status(500).json(err);
   }
