@@ -9,6 +9,7 @@ exports.register = async (req, res) => {
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 10),
     imageSrc: req.body.imageSrc,
+    isAdmin: req.body.isAdmin,
   });
 
   try {
